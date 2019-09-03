@@ -30,13 +30,13 @@ while True:
     image = imutils.resize(image, width=min(1200, image.shape[1]))
 
     # crop the image
-    image = image[300:1200, 0:200]
+    image = image[350:1200, 0:190]
 
     orig = image.copy()
 
     # detect people in the image
     #(rects, weights) = hog.detectMultiScale(image, winStride=(4, 4), padding=(8, 8), scale=1.05)
-    (rects, weights) = hog.detectMultiScale(image, winStride=(2, 2), padding=(2, 2), scale=1.03)
+    (rects, weights) = hog.detectMultiScale(image, winStride=(5, 5), padding=(5, 5), scale=1)
 
     # draw the original bounding boxes
     for (x, y, w, h) in rects:
@@ -59,6 +59,5 @@ while True:
 
     # show the output images
     cv2.imshow('Highline', image)
-    if cv2.waitKey() & 0xff == 27: quit()
-
-    #time.sleep(2)
+    cv2.waitKey(500)
+    #cv2.destroyAllWindows()
