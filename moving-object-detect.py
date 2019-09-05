@@ -3,10 +3,6 @@ import cv2
 from scipy.ndimage.filters import gaussian_filter
 import numpy as np
 
-## [create]
-#create Background Subtractor objects
-#backSub = cv2.createBackgroundSubtractorMOG2()
-
 # cv2.createBackgroundSubtractorKNN(	[, history[, dist2Threshold[, detectShadows]]]	)
 # cv2.createBackgroundSubtractorKNN(50, 400.0, True)
 #backSub = cv2.createBackgroundSubtractorKNN(50, 300.0, False)
@@ -48,7 +44,7 @@ while True:
         # draw a green rectangle to visualize the bounding rect
         # skip the rectangle if falls into certain coordinates
 
-        if not (((x > 170) and (y < 260)) or (x > 150) and (x < 620) and (y < 430)):
+        if not (((x > 170) and (y < 260)) or (x > 150) and (x < 620) and (y < 430) or (y < 120)):
             cv2.rectangle(frame, (x-5, y-5), (x+w+10, y+h+10), (0, 255, 0), 1)
 
             '''
@@ -81,4 +77,4 @@ while True:
     cv2.imshow('FG Mask', foregroundMask)
     cv2.imshow('Frame', frame)
 
-    keyboard = cv2.waitKey(100)
+    keyboard = cv2.waitKey(700)
