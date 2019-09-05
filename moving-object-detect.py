@@ -5,7 +5,9 @@ import argparse
 ## [create]
 #create Background Subtractor objects
 #backSub = cv.createBackgroundSubtractorMOG2()
-backSub = cv.createBackgroundSubtractorKNN()
+
+# 	cv.createBackgroundSubtractorKNN(	[, history[, dist2Threshold[, detectShadows]]]	)
+backSub = cv.createBackgroundSubtractorKNN([, 50[, 400.0[, True]]]
 
 
 def rescale_frame(frame, percent=75):
