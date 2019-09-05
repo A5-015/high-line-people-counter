@@ -69,6 +69,7 @@ while True:
             frame = cv2.circle(frame, center, radius, (255, 0, 0), 2)
             '''
             peopleCount = peopleCount + 1
+            print("Found a person at [x,y]: " + str(x) + ", " + str(y))
 
     # Draw the people counter
     cv2.rectangle(frame, (10, 2), (100,20), (255,255,255), -1)
@@ -76,6 +77,7 @@ while True:
     cv2.FONT_HERSHEY_SIMPLEX, 0.5 , (0,0,0))
 
     # Show images
+    foregroundMask = rescale_frame(foregroundMask, percent=50)
     cv2.imshow('FG Mask', foregroundMask)
     cv2.imshow('Frame', frame)
 
