@@ -7,28 +7,33 @@ import argparse
 #backSub = cv.createBackgroundSubtractorMOG2()
 backSub = cv.createBackgroundSubtractorKNN()
 
+
+def rescale_frame(frame, percent=75):
+    width = int(frame.shape[1] * percent/ 100)
+    height = int(frame.shape[0] * percent/ 100)
+    dim = (width, height)
+    return cv.resize(frame, dim, interpolation =cv.INTER_AREA)
+
+
 while True:
-    capture = cv.VideoCapture("http://192.168.1.2/cam-hi.jpg")
-    ret, frame = capture.read()
-    if frame is None:
-        break
 
-    ## [apply]
-    #update the background model
-    fgMask = backSub.apply(frame)
-    ## [apply]
+	capture = cv.VideoCapture("http://192.168.1.2/cam-hi.jpg")
 
-    ## [display_frame_number]
-    #get the frame number and write it on the current frame
-    cv.rectangle(frame, (10, 2), (100,20), (255,255,255), -1)
-    cv.putText(frame, str(capture.get(cv.CAP_PROP_POS_FRAMES)), (15, 15),
-               cv.FONT_HERSHEY_SIMPLEX, 0.5 , (0,0,0))
-    ## [display_frame_number]
+	ret, frame = capture.read()
 
-    ## [show]
-    #show the current frame and the fg masks
-    cv.imshow('Frame', frame)
-    cv.imshow('FG Mask', fgMask)
-    ## [show]
+	#rescale frame
+	frame = rescale_frame(frame, percent=50)
 
-    keyboard = cv.waitKey(500)
+	#update the background model
+	fgMask = backSub.apply(frame)
+
+	#get the frame number and write it on the current frame
+	cv.rectangle(frame, (10, 2), (100,20), (255,255,255), -1)
+	cv.putText(frame, str(capture.get(cv.CAP_PROP_POS_FRAMES)), (15, 15),
+	           cv.FONT_HERSHEY_SIMPLEX, 0.5 , (0,0,0))
+
+	#show the current frame and the fg masks
+	cv.imshow('Frame', frame)
+	cv.imshow('FG Mask', fgMask)
+
+	keyboard = cv.waitKey(500)
